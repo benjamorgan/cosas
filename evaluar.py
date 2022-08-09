@@ -33,11 +33,12 @@ def load_test_data(base_dir, IMG_SIZE):
     BATCH_SIZE = 200
     test_dir = os.path.join(base_dir, 'test')
     train_dir = os.path.join(base_dir, 'train')
-    train_dataset = image_dataset_from_directory(train_dir,batch_size=BATCH_SIZE,image_size=IMG_SIZE,validation_split=0.2,subset="training",label_mode='categorical')
+    train_dataset = image_dataset_from_directory(train_dir,batch_size=BATCH_SIZE,image_size=IMG_SIZE,validation_split=0.2,seed=123,subset="training",label_mode='categorical')
     test_dataset = image_dataset_from_directory(train_dir,
                                                  batch_size=BATCH_SIZE,
                                                  image_size=IMG_SIZE,
                                                 validation_split=0.2,
+                                                seed=123,
                                                 subset="validation",
                                                 label_mode='categorical')
     class_names = test_dataset.class_names
