@@ -89,16 +89,8 @@ def graficar(Modelo, Metodologia):
     else:
       model, base_model = modelo(IMG_SIZE, Modelo, metrics)
 
-    """## Checkpoint"""
-
-    checkpoint_path = os.path.join('/content/drive/MyDrive/MAGISTER/Codigos/Checkpoints/', Modelo, Metodologia , 'cp.ckpt')
-    checkpoint_dir = os.path.dirname(checkpoint_path)
-    print(checkpoint_path)
-    # Create a callback that saves the model's weights
-
     """## Visualizar metricas"""
 
-    model.load_weights(checkpoint_path)
     if Metodologia == 'Metodologia 5':
       train_ds, test_ds, class_names = load_test_data(base_dir, (248, 632))
     else:
