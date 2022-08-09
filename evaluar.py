@@ -33,12 +33,13 @@ def load_test_data(base_dir, IMG_SIZE):
     BATCH_SIZE = 200
     test_dir = os.path.join(base_dir, 'test')
     train_dir = os.path.join(base_dir, 'train')
-    train_dataset = image_dataset_from_directory(train_dir,
+    train_dataset = image_dataset_from_directory(train_dir,batch_size=BATCH_SIZE,image_size=IMG_SIZE,validation_split=0.2,subset="training",label_mode='categorical')
+    test_dataset = image_dataset_from_directory(train_dir,
                                                  batch_size=BATCH_SIZE,
-                                                 image_size=IMG_SIZE)
-    test_dataset = image_dataset_from_directory(test_dir,
-                                                batch_size=BATCH_SIZE,
-                                                image_size=IMG_SIZE)
+                                                 image_size=IMG_SIZE,
+                                                validation_split=0.2,
+                                                subset="validation",
+                                                label_mode='categorical')
     class_names = test_dataset.class_names
 
     AUTOTUNE = tf.data.experimental.AUTOTUNE
@@ -49,7 +50,7 @@ def load_test_data(base_dir, IMG_SIZE):
 
 
 def graficar(Modelo, Metodologia):
-    OCT_propio = '/content/drive/MyDrive/MAGISTER/DATA/DS_merged_OCT'
+    OCT_propio = '/content/drive/MyDrive/Colab/DataSet'
     OCT_FUNDUS_propio = '/content/drive/MyDrive/MAGISTER/DATA/DS_merged_OCT+FUNDUS'
     FUNDUS = '/content/drive/MyDrive/MAGISTER/DATA/Dataset propio 2021/Metodologia5/FUNDUS/'
     OCT_M5 = '/content/drive/MyDrive/MAGISTER/DATA/Dataset propio 2021/Metodologia5/OCT/'
@@ -68,9 +69,9 @@ def graficar(Modelo, Metodologia):
     #base_dir='/content/drive/MyDrive/MAGISTER/DATA/Dataset propio 2021/OCT+FUNDUS/output'     #poner path de OCT2017
     model_name= Modelo
     if Modelo =='Mobilenet':
-      IMG_SIZE = (224, 224)
+      IMG_SIZE = (144, 216)
     else:
-      IMG_SIZE = (150, 150)
+      IMG_SIZE = (144, 216)
 
     """## Crear el modelo"""
     metrics = [tf.keras.metrics.TruePositives(name='tp'),
